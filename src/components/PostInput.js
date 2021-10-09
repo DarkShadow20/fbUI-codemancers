@@ -9,11 +9,11 @@ export const PostInput = ({ msgObj, setMsgObj }) => {
     const[imageStatus,setImageStatus]=useState(false);
     const[urlList,setList]=useState([]);
     const [inputStatus, setInputStatus] = useState(false);
-    const [gifInput, setGifInput] = useState();
     const inputEl = useRef(null);
     const gifInputEl = useRef(null);
 
     const giphyApi = (target) => {
+      console.log(target)
         const search = target;
         const key = "26uo5oDseUkjRADzF3a9R6q79Njjef1A";
         const limit = 10;
@@ -22,7 +22,6 @@ export const PostInput = ({ msgObj, setMsgObj }) => {
           const data = res.data.data;
           const imageUrlList = data.map((item) => item.images.downsized.url);
           setList(imageUrlList);
-          console.log(imageUrlList);
         });
       };
   const canSave = Boolean(content) || Boolean(image);
@@ -42,8 +41,8 @@ export const PostInput = ({ msgObj, setMsgObj }) => {
     setImageStatus(false);
      };
   const gifHandler=(e)=>{
-    setGifInput(e.target.value);  
-    giphyApi(gifInput)
+    let gifInputValue=gifInputEl.current.value;
+    giphyApi(gifInputValue)
   }
   function imgHandler(url) {
     setStyle(false);
@@ -53,7 +52,7 @@ export const PostInput = ({ msgObj, setMsgObj }) => {
   }
   const imageList = urlList.map((url) => {
     return (
-      <li className="list-none m-1">
+      <li className="list-none m-1" key={url}>
         <img
           className="image"
           src={url}
@@ -77,7 +76,7 @@ export const PostInput = ({ msgObj, setMsgObj }) => {
       {imageStatus&&<img src={image} alt="" className="mx-4 my-1 p-1 h-10"/>}
       <div className="flex justify-between mb-2 mt-2">
         <div className="flex items-center">
-          <label
+          <label 
             htmlFor="file"
             className="flex cursor-pointer items-center rounded p-2 ml-14 font-medium  hover:bg-gray-100"
           >

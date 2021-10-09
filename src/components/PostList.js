@@ -28,9 +28,9 @@ export const PostList = () => {
     );
 
   return (
-    <>
+    <div className="p-6 items-center justify-center flex items-center flex-col mt-3 mb-5"> 
       <PostInput msgObj={msgObj} setMsgObj={setMsgObj} />
       {renderContent}
-    </>
+    </div>
   );
 };
